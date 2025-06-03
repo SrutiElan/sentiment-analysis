@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Prediction Result</h1>
+        <p class="subtitle">Here’s what our model thinks:</p>
+
+        <div class="result-box">
+            <h2>Sentiment: <span class="prediction">{{ prediction }}</span></h2>
+        </div>
+
+        <br>
+        <a href="/">
+            <button>Try Another Review</button>
+        </a>
+    </div>
+</body>
+</html>

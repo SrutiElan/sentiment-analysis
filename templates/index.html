@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Predict Review Sentiment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Predict Review Sentiment</h1>
+        <p class="subtitle">Instantly know if your review hits the mark.</p>
+
+        <form action="/predict" method="POST">
+            <textarea name="input" placeholder="Paste your app review here..." required></textarea>
+            <button type="submit">Analyze Sentiment</button>
+        </form>
+
+        <div class="examples">
+            <h2>Example Reviews</h2>
+            <div class="example">
+                <span>The app is very easy to use!</span>
+                <form action="/predict" method="POST"><input type="hidden" name="input" value="The app is very easy to use!"><button>Try it</button></form>
+            </div>
+            <div class="example">
+                <span>Doesn’t work at all</span>
+                <form action="/predict" method="POST"><input type="hidden" name="input" value="Doesn’t work at all"><button>Try it</button></form>
+            </div>
+            <div class="example">
+                <span>I love the new update!</span>
+                <form action="/predict" method="POST"><input type="hidden" name="input" value="I love the new update!"><button>Try it</button></form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
