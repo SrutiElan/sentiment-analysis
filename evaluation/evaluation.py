@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 import json
 
-model_names = ["bert", "logreg", "lstm",  "naivebayes", "svm"]
+model_names = ["bert", "logreg", "lstm", "cnn", "naivebayes", "svm"]
 
 metrics_dict = {}
 for name in model_names:
@@ -16,6 +16,7 @@ df = df.rename(
     index={"bert" : "BERT",
             "logreg": "Logistic Regression", 
             "lstm" : "LSTM",
+            "cnn" : "CNN",
            "naivebayes": "Naive Bayes", 
            "svm": "SVM"},
     columns={"f1": "macro F1 score"}
