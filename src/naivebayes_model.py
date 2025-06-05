@@ -12,6 +12,10 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 from sklearn.svm import LinearSVC
 import seaborn as sns
+import time
+
+start_time = time.time()
+
 
 # load 
 df = pd.read_csv("data/processed/preprocessed_reviews.csv")
@@ -39,6 +43,9 @@ nb_pipeline = Pipeline([
 
 # training
 nb_pipeline.fit(X_train, y_train)
+end_time = time.time()
+elapsed_time = end_time - start_time
+
 # testing
 y_pred_nb = nb_pipeline.predict(X_test)
 
@@ -68,7 +75,8 @@ metrics = {
     "accuracy": acc,
     "precision": prec,
     "recall": rec,
-    "f1": f1
+    "f1": f1,
+    "time": elapsed_time
 }
 with open("evaluation/naivebayes_metrics.json", "w") as fp:
     json.dump(metrics, fp, indent=2)
