@@ -1,5 +1,6 @@
 import os
 import json
+import time
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import (accuracy_score, precision_score, recall_score, f1_score, classification_report, confusion_matrix)
@@ -36,7 +37,9 @@ pipeline = Pipeline([
 ])
 
 # train
+start_time = time.time()
 pipeline.fit(X_train, y_train)
+elapsed = time.time() - start_time
 
 # save model
 os.makedirs("models", exist_ok=True)
@@ -67,7 +70,8 @@ metrics = {
     "accuracy": acc,
     "precision": prec,
     "recall": rec,
-    "f1": f1
+    "f1": f1,
+    "time": elapsed
 }
 with open("evaluation/logreg_metrics.json", "w") as fp:
     json.dump(metrics, fp, indent=2)
