@@ -12,6 +12,9 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 from sklearn.svm import LinearSVC
 import seaborn as sns
+import time
+
+start_time = time.time()
 
 # load 
 df = pd.read_csv("data/processed/preprocessed_reviews.csv")
@@ -39,6 +42,9 @@ svm_pipeline = Pipeline([
 
 #training
 svm_pipeline.fit(X_train, y_train)
+end_time = time.time()
+elapsed_time = end_time - start_time
+
 #testing
 y_pred_svm = svm_pipeline.predict(X_test)
 
@@ -64,7 +70,8 @@ metrics = {
     "accuracy": acc_svm,
     "precision": prec_svm,
     "recall": rec_svm,
-    "f1": f1_svm
+    "f1": f1_svm,
+    "time": elapsed_time
 }
 with open("evaluation/svm_metrics.json", "w") as fp:
     json.dump(metrics, fp, indent=2)
