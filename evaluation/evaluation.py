@@ -25,12 +25,13 @@ df = df.rename(
 
 
 
-df = df[['accuracy', 'precision', 'recall', 'macro F1 score']]
+df = df[['accuracy', 'precision', 'recall', 'macro F1 score', 'time']]
 # creating latex table
 with open('evaluation/table.tex', 'w') as f:
    f.write(df.to_latex())
 print(df.to_latex())
 
+df = df[['accuracy', 'precision', 'recall', 'macro F1 score']]
 df_transposed = df.transpose()
 
 ax = df_transposed.plot.bar(rot=0)
