@@ -11,9 +11,10 @@
         <p class="subtitle">Here’s what our model thinks:</p>
 
         <div class="result-box">
-            <h2>Sentiment: <span class="prediction">{{ prediction }}</span></h2>
+            <h2>Sentiment: <span class="prediction {{ prediction.lower() }}">{{ prediction }}</span></h2>
         </div>
-
+        <div class="confidence">Confidence: {{ confidence }}</div>
+        <div class="ux-insight">{{ insight }}</div>
         <br>
         <a href="/">
             <button>Try Another Review</button>

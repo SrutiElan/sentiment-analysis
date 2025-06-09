@@ -95,3 +95,20 @@ button:hover {
     margin-top: 0.5rem;
     color: #333;
 }
+
+.confidence {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 0.5rem;
+}
+
+.positive { color: #00ac3f; }
+.negative { color: #dd2828; }
+
+.ux-insight {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    background: #f5f5f5;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}

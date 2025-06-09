@@ -1,6 +1,19 @@
 from flask import Flask, render_template, request
 import pandas as pd
 import joblib
+import re
+from nltk.corpus import stopwords
+import nltk
+
+nltk.download("stopwords")
+stop_words = set(stopwords.words("english"))
+
+def clean(text):
+    text = text.lower()                         # make all text lowercase
+    text = re.sub(r'[^a-z\s]', '', text)        # remove special chars, punctuation, numbers
+    tokens = text.split()                       # split text by words
+    tokens = [word for word in tokens if word not in stop_words and len(word) > 2]
+    return ' '.join(tokens)
 
 app = Flask(__name__)
 
@@ -18,7 +31,7 @@ def predict():
 
         # Build the required input format
         input_data = {
-            'cleaned_text': [review],
+            'cleaned_text': [clean(review)],
             'has_upvotes': [0],
             'review_length': [len(review.split())],
             'exclamation_count': [review.count('!')],
@@ -48,8 +61,20 @@ def predict():
         input_df = pd.DataFrame(input_data)
         prediction = model.predict(input_df)[0]
         label = "Positive" if prediction == 1 else "Negative"
-
-        return render_template("result.html", prediction=label)
+        
+        # calculate confidence
+        prediction_proba = model.predict_proba(input_df)[0]
+        confidence = max(prediction_proba) * 100
+        
+        # insight from predicted confidence 
+        if confidence >= 85:
+            insight = "High confidence: clear sentiment, recommended for automated analysis"
+        elif confidence >= 60:
+            insight = "Medium confidence: mixed signals, consider human review"
+        else:
+            insight = "Low confidence: unclear sentiment, human review recommended for analysis"
+            
+        return render_template("result.html", prediction=label, confidence=f"{confidence:.1f}%", insight=insight)
 
     return "Something went wrong."
 
